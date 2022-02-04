@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		count_digit(int n)
+static int	count_digit(int n)
 {
 	long		num;
 	int			digit;
@@ -32,7 +32,7 @@ static int		count_digit(int n)
 	return (digit);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char		*result;
 	int			i;
@@ -42,7 +42,8 @@ char			*ft_itoa(int n)
 	i = 0;
 	num = n;
 	digit = count_digit(n);
-	if (!(result = (char *)malloc(sizeof(char) * (digit + 1))))
+	result = (char *)malloc(sizeof(char) * (digit + 1));
+	if (!result)
 		return (NULL);
 	if (num < 0)
 	{

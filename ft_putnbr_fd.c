@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static void		ft_putnbr(long n, int fd)
+static void	ft_putnbr(long n, int fd)
 {
 	char	c;
 
@@ -32,7 +32,7 @@ static void		ft_putnbr(long n, int fd)
 	write(fd, &c, 1);
 }
 
-void			ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	ft_putnbr((long)n, fd);
 }

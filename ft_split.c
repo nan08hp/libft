@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int			cnt_word(char const *s, char c)
+static int	cnt_word(char const *s, char c)
 {
 	int		cnt;
 
@@ -30,7 +30,7 @@ static int			cnt_word(char const *s, char c)
 	return (cnt);
 }
 
-static int			cnt_char(char const *s, char c)
+static int	cnt_char(char const *s, char c)
 {
 	int		cnt;
 
@@ -40,7 +40,7 @@ static int			cnt_char(char const *s, char c)
 	return (cnt);
 }
 
-static char			**free_malloc(char **result, size_t index)
+static char	**free_malloc(char **result, size_t index)
 {
 	size_t		i;
 
@@ -54,24 +54,18 @@ static char			**free_malloc(char **result, size_t index)
 	return (NULL);
 }
 
-char				**ft_split(char const *s, char c)
+static char	**split_word(char const *s, char c, int words, char **result)
 {
-	char		**result;
-	int			words;
-	int			i;
-	int			j;
+	int		i;
+	int		j;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	words = cnt_word(s, c);
-	if (!(result = (char **)malloc(sizeof(char *) * (words + 1))))
-		return (NULL);
 	while (i < words)
 	{
 		while (*s == c && *s)
 			s++;
-		if (!(result[i] = (char *)malloc(sizeof(char) * (cnt_char(s, c) + 1))))
+		result[i] = (char *)malloc(sizeof(char) * (cnt_char(s, c) + 1));
+		if (!result[i])
 			return (free_malloc(result, i));
 		j = 0;
 		while (*s != c && *s)
@@ -80,5 +74,20 @@ char				**ft_split(char const *s, char c)
 		i++;
 	}
 	result[i] = NULL;
+	return (result);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char		**result;
+	int			words;
+
+	if (!s)
+		return (NULL);
+	words = cnt_word(s, c);
+	result = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!result)
+		return (NULL);
+	result = split_word(s, c, words, result);
 	return (result);
 }

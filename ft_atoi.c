@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int					sign;
 	unsigned long		number;
 
 	sign = 1;
 	number = 0;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' || \
 				*str == '\v' || *str == '\f' || *str == '\r'))
 		str++;
 	if (*str == '-')
@@ -29,7 +29,12 @@ int		ft_atoi(const char *str)
 	while (*str && '0' <= *str && *str <= '9')
 	{
 		if (number > LONG_MAX)
-			return (sign == -1 ? 0 : -1);
+		{
+			if (sign == -1)
+				return (0);
+			else
+				return (-1);
+		}
 		number = (number * 10) + (*str - '0');
 		str++;
 	}
